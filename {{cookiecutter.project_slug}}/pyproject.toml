@@ -1,5 +1,19 @@
 [tool.poetry]
-name = "{{ cookiecutter.project_slug }}"
+name = "{{cookiecutter.project_slug}}"
 version = "0.1.0"
-description = "{{ cookiecutter.description }}"
-authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
+description = "{{cookiecutter.description}}"
+authors = ["{{cookiecutter.author_name}} <{{cookiecutter.author_email}}>"]
+readme = "README.md"
+license = "{{cookiecutter.license}}"
+packages = [
+    { include = "src/{{cookiecutter.project_slug}}" }
+]
+
+[tool.poetry.dependencies]
+python = "^{{cookiecutter.python_version}}"
+# Add more dependencies here, e.g.:
+# pydantic = "^2.11.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
