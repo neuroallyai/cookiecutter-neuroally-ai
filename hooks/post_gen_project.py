@@ -2,30 +2,11 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-
-# These come in as Jinja strings. You'll need to copy-paste all your variables here:
-slug = "{{ cookiecutter.project_slug }}"
-use_conda = "{{ cookiecutter.use_conda_support }}" == "yes"
-
-# Flatten your nested advanced options
-include_streamlit = (
-    "{{ cookiecutter._advanced_options['UI Frameworks']['include_streamlit'] }}"
-    == "yes"
-)
-include_fastapi = (
-    "{{ cookiecutter._advanced_options['UI Frameworks']['include_fastapi'] }}" == "yes"
-)
-include_langchain = (
-    "{{ cookiecutter._advanced_options['LLM Integrations']['include_langchain'] }}"
-    == "yes"
-)
-include_openai = (
-    "{{ cookiecutter._advanced_options['LLM Integrations']['include_openai'] }}"
-    == "yes"
-)
-# ...repeat for each nested option you want to use
+import shutil
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
+slug = "{{ cookiecutter.project_slug }}"
+use_conda = "{{ cookiecutter.use_conda_support }}" == "yes"
 
 
 def run(cmd, **kwargs):
@@ -33,7 +14,18 @@ def run(cmd, **kwargs):
     subprocess.run(cmd, shell=True, check=True, **kwargs)
 
 
+def ensure_poetry():
+    """Ensure poetry is installed system-wide before continuing."""
+    if shutil.which("poetry") is None:
+        print("Poetry not found. Installing Poetry...")
+        run("pip install --user poetry")
+        print("✅ Poetry installed.")
+    else:
+        print("✅ Poetry already installed.")
+
+
 def create_poetry_venv():
+    ensure_poetry()
     run("poetry install")
     print("\n✅ Poetry venv created. Activate with:\n   poetry shell")
 
@@ -58,11 +50,11 @@ def main():
         create_conda_env()
     else:
         create_poetry_venv()
-    # Example: run something extra only if Streamlit or OpenAI was selected
-    if include_streamlit:
-        print("🚀 Streamlit UI enabled.")
-    if include_openai:
-        print("🤖 OpenAI integration enabled.")
+    print(
+        "\n🧑‍💻 Want all optional dependencies? Run:"
+        "\n   poetry run pip install -r requirements_full.txt"
+        "\nOr just use requirements.txt for your selected features."
+    )
 
 
 if __name__ == "__main__":
