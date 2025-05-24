@@ -1,0 +1,70 @@
+numpy>=2.0.2
+pydantic>=2.11.5
+pydantic-settings>=2.9.1
+python-dotenv>=1.1.0
+PyYAML>=6.0.2
+hydra-zen>=0.14.0
+requests>=2.32.3
+
+{% if cookiecutter._advanced_options['Testing & Quality']['include_tests'] == 'yes' %}
+pytest>=8.2.1
+{% endif %}
+{% if cookiecutter._advanced_options['UI Frameworks']['include_fastapi'] == 'yes' %}
+fastapi>=0.110.0
+uvicorn>=0.31.1
+{% endif %}
+{% if cookiecutter._advanced_options['UI Frameworks']['include_streamlit'] == 'yes' %}
+streamlit>=1.35.0
+{% endif %}
+{% if cookiecutter._advanced_options['LLM Integrations']['include_langchain'] == 'yes' %}
+langchain>=0.1.14
+chromadb>=0.4.25
+pinecone-client>=3.2.0
+{% endif %}
+{% if cookiecutter._advanced_options['LLM Integrations']['include_openai'] == 'yes' %}
+openai>=1.13.3
+{% endif %}
+{% if cookiecutter._advanced_options['LLM Integrations']['include_ollama'] == 'yes' %}
+ollama>=0.1.30
+{% endif %}
+{% if cookiecutter._advanced_options['LLM Integrations']['include_gemini'] == 'yes' %}
+google-generativeai>=0.4.0
+{% endif %}
+{% if cookiecutter._advanced_options['LLM Integrations']['include_vertex'] == 'yes' %}
+google-cloud-aiplatform>=2.18.0
+{% endif %}
+{% if cookiecutter._advanced_options['Data Management']['include_db'] == 'yes' %}
+psycopg2-binary>=2.9.9
+SQLAlchemy>=2.0.30
+{% endif %}
+{% if cookiecutter._advanced_options['Data Management']['include_redis'] == 'yes' %}
+redis>=5.0.3
+{% endif %}
+{% if cookiecutter._advanced_options['Data Management']['include_cache'] == 'yes' %}
+aioredis>=2.2.1
+fastapi-limiter>=0.1.6
+{% endif %}
+{% if cookiecutter._advanced_options['Deployment']['include_docker'] == 'yes' %}
+docker>=7.0.0
+{% endif %}
+{% if cookiecutter._advanced_options['Deployment']['include_kubernetes'] == 'yes' %}
+kubernetes>=29.0.0
+{% endif %}
+{% if cookiecutter._advanced_options['Deployment']['include_n8n'] == 'yes' %}
+n8n-client>=1.1.0
+{% endif %}
+{% if cookiecutter._advanced_options['UI Frameworks']['include_notebooks'] == 'yes' %}
+jupyter>=1.0.0
+{% endif %}
+{% if cookiecutter._advanced_options['Testing & Quality']['include_logging'] == 'yes' %}
+structlog>=24.1.0
+{% endif %}
+{% if cookiecutter._advanced_options['Testing & Quality']['include_monitoring'] == 'yes' %}
+prometheus-client>=0.20.0
+{% endif %}
+{% if cookiecutter._advanced_options['Ethical AI']['include_responsible_ai'] == 'yes' %}
+pydantic-i18n>=0.5.1
+{% endif %}
+{% if cookiecutter._advanced_options['Ethical AI']['include_data_privacy_guidelines'] == 'yes' %}
+voluptuous>=0.13.1
+{% endif %}
