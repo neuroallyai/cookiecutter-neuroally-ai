@@ -1,3 +1,4 @@
+# Base dependencies - always included
 numpy>=2.0.2
 pydantic>=2.11.5
 pydantic-settings>=2.9.1
@@ -6,67 +7,101 @@ PyYAML>=6.0.2
 hydra-zen>=0.14.0
 requests>=2.32.3
 
-{% if cookiecutter._advanced_options['Testing & Quality']['include_tests'] == 'yes' %}
+# Conditionally included dependencies based on your choices
+# Only if "enable_advanced_options" was set to "yes" in cookiecutter.json
+{% if cookiecutter.enable_advanced_options == 'yes' %}
+
+{% if cookiecutter.include_tests == 'yes' %}
 pytest>=8.2.1
 {% endif %}
-{% if cookiecutter._advanced_options['UI Frameworks']['include_fastapi'] == 'yes' %}
+
+{% if cookiecutter.include_fastapi == 'yes' %}
 fastapi>=0.110.0
 uvicorn>=0.31.1
 {% endif %}
-{% if cookiecutter._advanced_options['UI Frameworks']['include_streamlit'] == 'yes' %}
+
+{% if cookiecutter.include_streamlit == 'yes' %}
 streamlit>=1.35.0
 {% endif %}
-{% if cookiecutter._advanced_options['LLM Integrations']['include_langchain'] == 'yes' %}
+
+{% if cookiecutter.include_langchain == 'yes' %}
+# Core Langchain and common integrations
 langchain>=0.3.0
 chromadb>=0.6.0
 pinecone-client>=4.2.0
 {% endif %}
-{% if cookiecutter._advanced_options['LLM Integrations']['include_openai'] == 'yes' %}
+
+{% if cookiecutter.include_openai == 'yes' %}
 openai>=1.35.0
 {% endif %}
-{% if cookiecutter._advanced_options['LLM Integrations']['include_ollama'] == 'yes' %}
+
+{% if cookiecutter.include_ollama == 'yes' %}
 ollama>=0.3.0
 {% endif %}
-{% if cookiecutter._advanced_options['LLM Integrations']['include_gemini'] == 'yes' %}
+{# Note: cookiecutter.include_ollama_models is a flag for your logic, may not add a direct pip package here #}
+
+{% if cookiecutter.include_gemini == 'yes' %}
 google-generativeai>=0.7.0
 {% endif %}
-{% if cookiecutter._advanced_options['LLM Integrations']['include_vertex'] == 'yes' %}
+
+{% if cookiecutter.include_vertex == 'yes' %}
 google-cloud-aiplatform>=2.18.0
 {% endif %}
-{% if cookiecutter._advanced_options['Data Management']['include_db'] == 'yes' %}
+
+{% if cookiecutter.include_db == 'yes' %}
 psycopg2-binary>=2.9.9
 SQLAlchemy>=2.0.30
 {% endif %}
-{% if cookiecutter._advanced_options['Data Management']['include_redis'] == 'yes' %}
+
+{% if cookiecutter.include_redis == 'yes' %}
 redis>=5.0.3
 {% endif %}
-{% if cookiecutter._advanced_options['Data Management']['include_cache'] == 'yes' %}
-{# aioredis removed as its functionality is part of redis-py (redis.asyncio) #}
-{% if cookiecutter._advanced_options['UI Frameworks']['include_fastapi'] == 'yes' %}
+
+{# For fastapi-limiter, depends on both 'include_cache' and 'include_fastapi' being enabled #}
+{% if cookiecutter.include_cache == 'yes' and cookiecutter.include_fastapi == 'yes' %}
 fastapi-limiter>=0.1.6
 {% endif %}
-{% endif %}
-{% if cookiecutter._advanced_options['Deployment']['include_docker'] == 'yes' %}
+
+{% if cookiecutter.include_docker == 'yes' %}
+# Python library to interact with the Docker Engine API
 docker>=7.0.0
 {% endif %}
-{% if cookiecutter._advanced_options['Deployment']['include_kubernetes'] == 'yes' %}
+
+{% if cookiecutter.include_kubernetes == 'yes' %}
+# Python client for the Kubernetes API
 kubernetes>=29.0.0
 {% endif %}
-{% if cookiecutter._advanced_options['Deployment']['include_n8n'] == 'yes' %}
+
+{% if cookiecutter.include_n8n == 'yes' %}
 n8n-client>=1.1.0
 {% endif %}
-{% if cookiecutter._advanced_options['Other']['include_notebooks'] == 'yes' %}
+
+{% if cookiecutter.include_notebooks == 'yes' %}
 jupyterlab>=5.0.0 # Replaced outdated jupyter with jupyterlab
 {% endif %}
-{% if cookiecutter._advanced_options['Testing & Quality']['include_logging'] == 'yes' %}
+
+{% if cookiecutter.include_logging == 'yes' %}
 structlog>=24.1.0
 {% endif %}
-{% if cookiecutter._advanced_options['Testing & Quality']['include_monitoring'] == 'yes' %}
+
+{% if cookiecutter.include_monitoring == 'yes' %}
 prometheus-client>=0.20.0
 {% endif %}
-{% if cookiecutter._advanced_options['Ethical AI']['include_responsible_ai'] == 'yes' %}
-pydantic-i18n>=1.10.0 # Updated package assumption and version
+
+{% if cookiecutter.include_responsible_ai == 'yes' %}
+# Example tool for i18n with Pydantic models
+pydantic-i18n>=1.10.0
 {% endif %}
-{% if cookiecutter._advanced_options['Ethical AI']['include_data_privacy_guidelines'] == 'yes' %}
+
+{% if cookiecutter.include_data_validation == 'yes' %}
+# Example data validation library
 voluptuous>=0.13.1
 {% endif %}
+
+{# Other flags from your cookiecutter.json like:
+   - include_ui, include_ollama_models, include_ci_cd, include_data_privacy_guidelines,
+   - include_cli, include_docs, include_examples, include_tracking
+   - may control other generated files or boilerplate, not direct pip packages in this file.
+#}
+
+{% endif %}{# End of enable_advanced_options block #}
