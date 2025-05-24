@@ -1,9 +1,11 @@
-# Auto-detect text files and ensure they use LF line endings in the repository.
-# On checkout, Git will handle conversion to CRLF on Windows if core.autocrlf is true.
+# Auto-detect text files and enforce LF line endings in the repository.
+# On checkout to Windows, Git can convert LF to CRLF if core.autocrlf is true,
+# but the version committed to the repository will always be LF.
 * text=auto eol=lf
 
 # Explicitly declare common text file types to use LF.
 # This reinforces the rule and helps Git's heuristics.
+# Add or remove extensions specific to your project types.
 *.py text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
@@ -16,6 +18,7 @@
 *.csv text eol=lf
 *.tsv text eol=lf
 *.sh text eol=lf
+*.bash text eol=lf
 *.js text eol=lf
 *.css text eol=lf
 *.html text eol=lf
@@ -25,28 +28,30 @@
 .gitignore text eol=lf
 .env.example text eol=lf
 Makefile text eol=lf
+Dockerfile text eol=lf
+*.lock text eol=lf # For lock files like poetry.lock, package-lock.json
 
-# Declare common script files that should have LF endings, especially for shebangs.
-*.bash text eol=lf
+# Jupyter Notebooks: Treat as text with LF endings.
+# Consider using a specialized diff tool like nbdime for better notebook diffs.
+*.ipynb text eol=lf
+# If you prefer Git to not try and diff notebooks line-by-line (if you don't have nbdime configured):
+# *.ipynb -diff
 
-# For Windows-specific batch files, you might want CRLF (optional, less common in cross-platform projects)
+# For Windows-specific batch files, you might want CRLF (optional).
 # *.bat text eol=crlf
 # *.cmd text eol=crlf
 
 # Declare common binary file types.
 # This prevents Git from attempting to normalize line endings or show text diffs.
+# Add or remove extensions as needed.
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
+*.bmp binary
+
 *.pdf binary
-*.zip binary
-*.gz binary
-*.tar binary
-*.bz2 binary
-*.rar binary
-*.7z binary
 *.doc binary
 *.docx binary
 *.xls binary
@@ -56,48 +61,62 @@ Makefile text eol=lf
 *.odt binary
 *.ods binary
 *.odp binary
-*.epub binary
-*.mobi binary
+
+*.zip binary
+*.tar binary
+*.gz binary
+*.bz2 binary
+*.rar binary
+*.7z binary
+*.tgz binary
+*.xz binary
+
 *.mp3 binary
 *.mp4 binary
 *.avi binary
+*.mov binary
+*.wmv binary
 *.wav binary
 *.ogg binary
+*.flac binary
+
 *.woff binary
 *.woff2 binary
 *.ttf binary
 *.otf binary
 *.eot binary
-*.DS_Store binary # Though usually in .gitignore, doesn't hurt here
 
-# Compiled Python extensions or other binaries
 *.so binary
 *.dll binary
 *.exe binary
 *.jar binary
 *.class binary
-*.pyc binary # Usually in .gitignore, but marking as binary is also fine
-*.pyo binary # Usually in .gitignore
+*.pyc binary # Typically in .gitignore, but marking binary doesn't hurt
+*.pyo binary # Typically in .gitignore
+*.o binary
+*.a binary
+*.lib binary
+*.dylib binary
+*.bundle binary
 
-# Jupyter Notebooks:
-# Notebooks are JSON but can have large diffs due to output and metadata.
-# Option 1: Treat as binary for diffing (simple, avoids noisy diffs in basic git diff)
-# *.ipynb -diff
-# Option 2: Specify a custom diff driver (requires user setup, e.g., with nbdime)
-# *.ipynb diff=jupyter
-# For a template, simply ensuring they are treated as text with LF endings is a good start,
-# and users can configure custom diff tools if they wish.
-# The *.json rule above might cover .ipynb if not explicitly listed.
-# Let's be explicit:
-*.ipynb text eol=lf
-# If you use nbdime or similar tools, you might add:
-# *.ipynb diff=ipynb
-
-# SQLite databases
 *.sqlite binary
 *.sqlite3 binary
 *.db binary
 
-# Pickle files
 *.pkl binary
 *.pickle binary
+*.h5 binary
+*.hdf5 binary
+*.parquet binary
+*.feather binary
+*.arrow binary
+*.pt binary # PyTorch models
+*.pth binary # PyTorch models
+*.onnx binary # ONNX models
+*.pb binary  # Protocol Buffers, TensorFlow models
+*.tflite binary # TensorFlow Lite models
+*.gguf binary # Common LLM model format
+*.safetensors binary # Common model format
+
+# Specific to prevent issues with some tools if they are binary but not caught by extension
+# .DS_Store binary # Already in .gitignore, but being explicit here is fine too.
