@@ -16,10 +16,10 @@ packages = [
 [tool.poetry.dependencies]
 python = "^{{ cookiecutter.python_version }}"
 # --- CORE DEPENDENCIES (always installed by 'poetry install') ---
-numpy = ">=2.0.2"
+numpy = ">=2.2.6"
 pydantic = ">=2.11.5"
-pydantic-settings = ">=2.9.1" 
-python-dotenv = ">=1.1.0"
+pydantic-settings = ">=2.9.1"
+python-dotenv = ">=0.0.1"
 PyYAML = ">=6.0.2"
 hydra-zen = ">=0.14.0"
 requests = ">=2.32.3"
@@ -30,14 +30,14 @@ requests = ">=2.32.3"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pytest = ">=8.2.1"
+pytest = ">=8.3.5"
 
 [tool.poetry.group.notebooks]
 optional = true
 
 [tool.poetry.group.notebooks.dependencies]
-jupyterlab = ">=5.0.0"
-ipykernel = ">=6.29.3"
+jupyterlab = ">=4.4.2"
+ipykernel = ">=6.29.5"
 
 [tool.poetry.group.fastapi]
 optional = true # For include_fastapi
@@ -55,13 +55,13 @@ fastapi-limiter = {version = ">=0.1.6", optional = true}
 optional = true
 
 [tool.poetry.group.streamlit.dependencies]
-streamlit = ">=1.35.0"
+streamlit = ">=1.45.1"
 
 [tool.poetry.group.langchain]
 optional = true
 
 [tool.poetry.group.langchain.dependencies]
-langchain = ">=0.3.0"
+langchain = ">=0.3.25"
 chromadb = ">=0.6.0"
 pinecone-client = ">=4.2.0"
 
@@ -69,7 +69,7 @@ pinecone-client = ">=4.2.0"
 optional = true
 
 [tool.poetry.group.openai.dependencies]
-openai = ">=1.35.0"
+openai = ">=1.82.0"
 
 [tool.poetry.group.ollama]
 optional = true
@@ -84,10 +84,11 @@ optional = true
 google-generativeai = ">=0.7.0"
 
 [tool.poetry.group.vertex]
-optional = true
+optional = true # This group is installed if {{ cookiecutter.include_vertex == "yes" }}
+                # and the user runs 'poetry install --with vertex'
 
 [tool.poetry.group.vertex.dependencies]
-google-cloud-aiplatform = ">=2.18.0"
+google-cloud-aiplatform = ">=1.54.0"
 
 [tool.poetry.group.db]
 optional = true
@@ -115,10 +116,12 @@ optional = true
 kubernetes = ">=29.0.0"
 
 [tool.poetry.group.n8nclient]
-optional = true
+optional = true # This group is installed if {{ cookiecutter.include_n8n == "yes" }}
+                # and the user runs 'poetry install --with n8nclient'
 
 [tool.poetry.group.n8nclient.dependencies]
-n8n-client = ">=1.1.0"
+# Corrected package name to 'n8n' and version to reflect available version.
+n8n = { version = "^0.11.0", optional = true }
 
 [tool.poetry.group.app_logging]
 optional = true
