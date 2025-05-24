@@ -5,25 +5,43 @@
 name: {{ cookiecutter.project_slug }}
 
 channels:
-  - conda-forge
+  - conda-forge  # Recommended channel for many packages, including up-to-date Poetry
   - defaults
 
 dependencies:
+  # 1. Specify the Python version from your cookiecutter.json
   - python={{ cookiecutter.python_version }}
+
+  # 2. Pip is often useful to have explicitly in a Conda environment
   - pip
-  - poetry>=1.8.0
 
-  # Add any other base dependencies that are best managed by Conda.
+  # 3. --- CRUCIAL: Include Poetry ---
+  # This installs Poetry within the Conda environment itself.
+  # It allows the post-gen script to reliably run:
+  # 'conda run -n {{ cookiecutter.project_slug }} poetry install'
+  # to install dependencies from pyproject.toml into this Conda environment.
+  # Specify a recent, plausible version for May 2025.
+  - poetry>=1.8.0 # Or a more specific recent version like poetry>=1.8.2
+
+  # 4. --- Optional: Other core Conda-managed dependencies ---
+  # Add any other base dependencies that are best managed directly by Conda,
+  # especially if they are non-Python or have complex compiled components.
+  # For many Python-centric projects, only Python, pip, and Poetry might be needed here.
+  # Poetry will handle the bulk of your Python application dependencies via pyproject.toml.
   # Examples:
-  # - cudatoolkit=11.8
-  # - compilers
-  # - nodejs
+  # - cudatoolkit=11.8  # If doing GPU work and want Conda to manage CUDA
+  # - nodejs            # If you have a JS frontend component managed via Conda
 
-# To create the environment from this file (if not using the post-gen script):
-# conda env create -f environment.yml
+# --- How to use this file manually (if not using the post-gen script) ---
+#
+# To create the environment:
+#   conda env create -f environment.yml
 #
 # To activate the environment:
-# conda activate {{ cookiecutter.project_slug }}
+#   conda activate {{ cookiecutter.project_slug }}
 #
-# To update the environment if you change this file:
-# conda env update -f environment.yml --prune
+# To update the environment if you modify this file:
+#   conda env update --name {{ cookiecutter.project_slug }} --file environment.yml --prune
+#
+# To remove the environment:
+#   conda env remove --name {{ cookiecutter.project_slug }}

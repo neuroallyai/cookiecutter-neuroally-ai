@@ -1,107 +1,32 @@
-# Base dependencies - always included
-numpy>=2.0.2
-pydantic>=2.11.5
-pydantic-settings>=2.9.1
-python-dotenv>=1.1.0
-PyYAML>=6.0.2
-hydra-zen>=0.14.0
-requests>=2.32.3
+# This project uses Poetry for dependency management.
+# The primary definition of all Python dependencies (core and optional)
+# is in the `pyproject.toml` file.
+#
+# This `requirements.txt` file is NOT the primary source of dependencies
+# for developing or installing this project if you are using Poetry or Conda
+# as described in the README.md.
+#
+# --- How to Generate a `requirements.txt` from Poetry ---
+# If you need a `requirements.txt` file for specific deployment scenarios,
+# compatibility with other tools, or for environments where Poetry is not
+# directly used, you can generate it from your `pyproject.toml` and `poetry.lock`
+# files using Poetry's export command. This ensures consistency.
+#
+# 1. To generate `requirements.txt` with only main production dependencies:
+#    poetry export -f requirements.txt --output requirements.txt --without-hashes
+#
+# 2. To include dependencies from specific optional groups (e.g., 'dev', 'fastapi'):
+#    poetry export -f requirements.txt --output requirements-dev-fastapi.txt --with dev,fastapi --without-hashes
+#
+# 3. To include dependencies from ALL optional groups (creating a "full" list):
+#    poetry export -f requirements.txt --output requirements-all.txt --all-extras --without-hashes
+#    (Note: --all-extras will include all dependencies from all defined optional groups)
+#
+# It is strongly recommended to generate this file via `poetry export` rather than
+# maintaining it manually, to ensure it accurately reflects your project's resolved dependencies.
+#
+# For initial project setup, please follow the Poetry or Conda instructions in the
+# main README.md file to install dependencies directly from `pyproject.toml`.
 
-# Conditionally included dependencies based on your choices
-# Only if "enable_advanced_options" was set to "yes" in cookiecutter.json
-{% if cookiecutter.enable_advanced_options == 'yes' %}
-
-{% if cookiecutter.include_tests == 'yes' %}
-pytest>=8.2.1
-{% endif %}
-
-{% if cookiecutter.include_fastapi == 'yes' %}
-fastapi>=0.110.0
-uvicorn>=0.31.1
-{% endif %}
-
-{% if cookiecutter.include_streamlit == 'yes' %}
-streamlit>=1.35.0
-{% endif %}
-
-{% if cookiecutter.include_langchain == 'yes' %}
-# Core Langchain and common integrations
-langchain>=0.3.0
-chromadb>=0.6.0
-pinecone-client>=4.2.0
-{% endif %}
-
-{% if cookiecutter.include_openai == 'yes' %}
-openai>=1.35.0
-{% endif %}
-
-{% if cookiecutter.include_ollama == 'yes' %}
-ollama>=0.3.0
-{% endif %}
-{# Note: cookiecutter.include_ollama_models is a flag for your logic, may not add a direct pip package here #}
-
-{% if cookiecutter.include_gemini == 'yes' %}
-google-generativeai>=0.7.0
-{% endif %}
-
-{% if cookiecutter.include_vertex == 'yes' %}
-google-cloud-aiplatform>=2.18.0
-{% endif %}
-
-{% if cookiecutter.include_db == 'yes' %}
-psycopg2-binary>=2.9.9
-SQLAlchemy>=2.0.30
-{% endif %}
-
-{% if cookiecutter.include_redis == 'yes' %}
-redis>=5.0.3
-{% endif %}
-
-{# For fastapi-limiter, depends on both 'include_cache' and 'include_fastapi' being enabled #}
-{% if cookiecutter.include_cache == 'yes' and cookiecutter.include_fastapi == 'yes' %}
-fastapi-limiter>=0.1.6
-{% endif %}
-
-{% if cookiecutter.include_docker == 'yes' %}
-# Python library to interact with the Docker Engine API
-docker>=7.0.0
-{% endif %}
-
-{% if cookiecutter.include_kubernetes == 'yes' %}
-# Python client for the Kubernetes API
-kubernetes>=29.0.0
-{% endif %}
-
-{% if cookiecutter.include_n8n == 'yes' %}
-n8n-client>=1.1.0
-{% endif %}
-
-{% if cookiecutter.include_notebooks == 'yes' %}
-jupyterlab>=5.0.0 # Replaced outdated jupyter with jupyterlab
-{% endif %}
-
-{% if cookiecutter.include_logging == 'yes' %}
-structlog>=24.1.0
-{% endif %}
-
-{% if cookiecutter.include_monitoring == 'yes' %}
-prometheus-client>=0.20.0
-{% endif %}
-
-{% if cookiecutter.include_responsible_ai == 'yes' %}
-# Example tool for i18n with Pydantic models
-pydantic-i18n>=1.10.0
-{% endif %}
-
-{% if cookiecutter.include_data_validation == 'yes' %}
-# Example data validation library
-voluptuous>=0.13.1
-{% endif %}
-
-{# Other flags from your cookiecutter.json like:
-   - include_ui, include_ollama_models, include_ci_cd, include_data_privacy_guidelines,
-   - include_cli, include_docs, include_examples, include_tracking
-   - may control other generated files or boilerplate, not direct pip packages in this file.
-#}
-
-{% endif %}{# End of enable_advanced_options block #}
+# This template file intentionally does not list dependencies by default.
+# Please generate it as needed using the 'poetry export' commands above.

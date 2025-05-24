@@ -1,11 +1,11 @@
-{% raw %}{% if cookiecutter.license == "MIT" %}{% endraw %}
-{% raw %}{% include "licenses/MIT.txt" %}{% endraw %}
-{% raw %}{% elif cookiecutter.license == "Apache-2.0" %}{% endraw %}
-{% raw %}{% include "licenses/Apache-2.0.txt" %}{% endraw %}
-{% raw %}{% elif cookiecutter.license == "None" or not cookiecutter.license %}{% endraw %}
+{% if cookiecutter.license == "MIT" %}
+{% include "licenses/MIT.txt" %}
+{% elif cookiecutter.license == "Apache-2.0" %}
+{% include "licenses/Apache-2.0.txt" %}
+{% elif cookiecutter.license == "None" or not cookiecutter.license %}
 All Rights Reserved
 
-Copyright (c) {% raw %}{% now 'local', '%Y' %}{% endraw %} {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
+Copyright (c) {% now 'local', '%Y' %} {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
 
 This software is provided "as-is" and without any express or implied
 warranties, including, without limitation, the implied warranties of
@@ -13,11 +13,11 @@ merchantability and fitness for a particular purpose.
 
 This project is proprietary and not released under an open source license.
 For licensing information, please contact the author.
-{% raw %}{% else %}{% endraw %}
+{% else %}
 # License Information Not Available
 
 The license "{{ cookiecutter.license }}" was selected, but no specific template text is available for it in this Cookiecutter template.
 Please refer to the official text for this license or contact the project maintainers for full licensing details.
 
-Copyright (c) {% raw %}{% now 'local', '%Y' %}{% endraw %} {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
-{% raw %}{% endif %}{% endraw %}
+Copyright (c) {% now 'local', '%Y' %} {{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>
+{% endif %}
