@@ -7,7 +7,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # Optional: Don't cancel other jobs in matrix if one fails
+      fail-fast: false
       matrix:
         # This python-version will be used by GitHub Actions' matrix strategy.
         # Cookiecutter will insert the chosen Python version here.
@@ -26,7 +26,7 @@ jobs:
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
-          virtualenvs-in-project: true # Recommended for CI caching
+          virtualenvs-in-project: true
           installer-parallel: true
 
       - name: Load cached venv
@@ -34,9 +34,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv # Path to Poetry's virtual environment directory
-          key: venv-${{ runner.os }}-py${% raw %}${{ matrix.python-version }}{% endraw %}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-{% raw %}${{ runner.os }}{% endraw %}-py{% raw %}${{ matrix.python-version }}{% endraw %}-{% raw %}${{ hashFiles('**/poetry.lock') }}{% endraw %}
           restore-keys: |
-            venv-${{ runner.os }}-py${% raw %}${{ matrix.python-version }}{% endraw %}-
+            venv-{% raw %}${{ runner.os }}{% endraw %}-py{% raw %}${{ matrix.python-version }}{% endraw %}-
 
       - name: Install dependencies (core and dev)
         # Run if cache wasn't hit or if a more specific install is needed.
