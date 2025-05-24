@@ -1,7 +1,3 @@
-{{cookiecutter.project_slug}}/CONTRIBUTING.md (Template):
-
-Markdown
-
 # Contributing to {{ cookiecutter.project_name }}
 
 We love seeing contributions from the community and are excited to welcome yours! Whether you're fixing a bug, improving documentation, or proposing a new feature, your help is valued.
@@ -17,6 +13,10 @@ Thank you for your interest in making {{ cookiecutter.project_name }} better!
     - [Your First Code Contribution](#your-first-code-contribution)
     - [Pull Requests](#pull-requests)
   - [Development Setup](#development-setup)
+    - [Coding Standards](#coding-standards)
+    - [Code of Conduct](#code-of-conduct)
+    - [Code of Conduct](#code-of-conduct-1)
+  - [Questions?](#questions)
 
 ## How Can I Contribute?
 
@@ -38,68 +38,67 @@ We're always open to suggestions for new features or improvements to existing fu
 
 ### Your First Code Contribution
 Unsure where to begin contributing to {{ cookiecutter.project_name }}?
-- Look for issues tagged `good first issue` or `help wanted`.
+- Look for issues tagged `good first issue` or `help wanted` in the project's issue tracker.
 - You can also start by improving documentation or adding more tests.
 
 ### Pull Requests
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name` or `bugfix/issue-number-description`.
-3. Make your changes. Ensure you add or update tests as appropriate.
-4. Ensure your code lints and tests pass (e.g., `make lint` and `make test` if a Makefile is provided, or run the commands manually).
-5. Commit your changes with a clear and descriptive commit message.
-6. Push your branch to your fork: `git push origin feature/your-feature-name`.
-7. Open a pull request to the `main` (or `develop`) branch of the original repository.
-8. Clearly describe your changes in the pull request. Link to any relevant issues.
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name` or `bugfix/issue-number-description`.
+3.  Make your changes. Ensure you add or update tests as appropriate.
+4.  Ensure your code lints and tests pass (e.g., using `make lint` and `make test` if a Makefile is provided, or by running the respective commands manually).
+5.  Commit your changes with a clear and descriptive commit message (e.g., "feat: Add X feature", "fix: Resolve Y bug").
+6.  Push your branch to your fork: `git push origin feature/your-feature-name`.
+7.  Open a pull request to the `main` (or `develop`) branch of the original repository.
+8.  Clearly describe your changes in the pull request. Link to any relevant issues (e.g., "Closes #123").
 
 ## Development Setup
 
-To set up your development environment for {{ cookiecutter.project_name }}, please follow the instructions in the main [README.md](./README.md) under the "Getting Started" section. This will guide you through setting up {% if cookiecutter.use_conda_support == "yes" %}Conda and Poetry{% else %}Poetry{% endif %}, and installing core and development dependencies.
+To set up your development environment for {{ cookiecutter.project_name }}, please follow the instructions in the main [README.md](./README.md) under the "Getting Started" section. This will guide you through setting up {% if cookiecutter.use_conda_support == "yes" %}Conda and Poetry{% else %}Poetry{% endif %}, and installing core dependencies.
 
-It's recommended to install development tools using:
+It's highly recommended to install development tools using the `dev` group defined in `pyproject.toml`:
 ```bash
 {% if cookiecutter.use_conda_support == "yes" -%}
 conda run -n {{ cookiecutter.project_slug }} poetry install --with dev
 {%- else -%}
 poetry install --with dev
 {%- endif %}
-This will install tools like pytest for testing, and linters/formatters if configured in the dev group of pyproject.toml.
+```
+This will install tools like pytest for testing, and linters/formatters (e.g., Ruff, Black, Mypy) if configured in the dev group.
 
-Coding Standards
-TODO: Define any specific coding standards or style guides (e.g., "We follow PEP 8 strictly," "Use Black for code formatting," "Docstrings should follow X format").
-Ensure your code is well-commented where necessary.
-Write clear and concise commit messages.
+### Coding Standards
+TODO: Define any specific coding standards or style guides here. Examples:
+- "We follow PEP 8 for Python code."
+- "We use Black for code formatting (run make format or poetry run black .)."
+- "Docstrings should follow the Google Python Style Guide format."
+- Ensure your code is well-commented where necessary to explain complex logic.
+- Write clear, concise, and descriptive commit messages.
+
 {% if cookiecutter.include_code_of_conduct == "yes" %}
 
-Code of Conduct
-This project and everyone participating in it is governed by the {{ cookiecutter.project_name }} Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior.
+### Code of Conduct
+This project and everyone participating in it is governed by the {{ cookiecutter.project_name }} Code of Conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior as outlined in the Code of Conduct.
 {% else %}
 
-Code of Conduct
-We expect all contributors to interact respectfully and constructively. (TODO: Consider adding a formal Code of Conduct).
+### Code of Conduct
+We expect all contributors to interact respectfully and constructively. We value diverse perspectives and aim to create a welcoming environment for everyone.
+(TODO: Consider adding a formal Code of Conduct like the Contributor Covenant if you haven't already enabled its generation.)
 {% endif %}
 
-Questions?
-If you have any questions about contributing, feel free to open an issue or reach out to {{ cookiecutter.author_name }} at {{ cookiecutter.author_email }}.
+## Questions?
+If you have any questions about contributing, feel free to open an issue in the project's issue tracker or reach out to {{ cookiecutter.author_name }} at {{ cookiecutter.author_email }}.
 
-Thank you for contributing!
+Thank you for contributing to {{ cookiecutter.project_name }}!
 
 
-**Key aspects of this `CONTRIBUTING.md` template:**
+**Key things about this corrected template:**
 
-* **Conditional Generation:** The file itself will only be created if `{{ cookiecutter.include_contributing == 'yes' }}`.
-* **Dynamic Information:** Uses `{{ cookiecutter.project_name }}`, `{{ cookiecutter.python_version }}`, `{{ cookiecutter.version }}`, `{{ cookiecutter.author_name }}`, `{{ cookiecutter.author_email }}`, and `{{ cookiecutter.project_slug }}`.
-* **Standard Sections:** Covers how to report bugs, suggest features, make pull requests, setup development environment, and coding standards (with TODOs for specifics).
-* **Links to Other Files:** Dynamically links to `README.md` and conditionally to `CODE_OF_CONDUCT.md`.
-* **Makefile Reference:** Suggests using `make` targets if available.
-* **Poetry/Conda Commands:** Provides correct commands for installing dev dependencies.
+* **No `project\_name`:** All instances use the correct `{{ cookiecutter.project_name }}`.
+* **Standard Table of Contents:** The Table of Contents links to standard Markdown headings like `#how-can-i-contribute` which are automatically generated by most Markdown renderers from `## How Can I Contribute?`. It does not include the problematic self-referential link that was causing the error.
+* **Uses Cookiecutter Variables Correctly:** For project name, version, author details, etc.
+* **Conditional Link to `CODE_OF_CONDUCT.md`:** Based on your `cookiecutter.json` flag.
+* **Clear Instructions:** Provides guidance on reporting bugs, suggesting features, PRs, and development setup.
+* **Placeholders (`TODO`):** Indicates where the user of the generated project should add their specific details (like coding standards).
 
-**Action for you:**
+By replacing the content of your `CONTRIBUTING.md` template with this version, the Jinja syntax error should be resolved.
 
-1.  **Create the conditional file** in your template:
-    `cookiecutter-neuroally-ai/{{cookiecutter.project_slug}}/{% if cookiecutter.include_contributing == 'yes' %}CONTRIBUTING.md{% endif %}`
-2.  **Paste the content above** into this file.
-3.  Remember to fill in the `TODO:` sections within the template or add comments guiding the end-user on what to fill in their generated project.
-
----
-
-After this, we can similarly define `CODE_OF_CONDUCT.md` and `SECURITY.md`. Ready to proceed with `CODE_OF_CONDUCT.md` next?
+After you've done this, please try running `cookiecutter` again. If a new error appears, please share it. If it succeeds, we can move on to the next file!
