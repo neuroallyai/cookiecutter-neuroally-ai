@@ -53,7 +53,7 @@ kubernetes>=29.0.0
 {% if cookiecutter._advanced_options['Deployment']['include_n8n'] == 'yes' %}
 n8n-client>=1.1.0
 {% endif %}
-{% if cookiecutter._advanced_options['UI Frameworks']['include_notebooks'] == 'yes' %}
+{% if cookiecutter._advanced_options['Other']['include_notebooks'] == 'yes' %}
 jupyter>=1.0.0
 {% endif %}
 {% if cookiecutter._advanced_options['Testing & Quality']['include_logging'] == 'yes' %}
