@@ -1,5 +1,5 @@
 # .github/workflows/ci.yml
-name: Python CI
+name: Python CI for {{ cookiecutter.project_name }}
 
 on: [push, pull_request]
 
@@ -7,46 +7,53 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false # Optional: Don't cancel other jobs in matrix if one fails
       matrix:
-        # Use the Python version from Cookiecutter
-        python-version: ["{{ cookiecutter.python_version }}"] 
+        # This python-version will be used by GitHub Actions' matrix strategy.
+        # Cookiecutter will insert the chosen Python version here.
+        python-version: ["{{ cookiecutter.python_version }}"]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
-          virtualenvs-in-project: true # Often recommended for CI caching
+          virtualenvs-in-project: true # Recommended for CI caching
           installer-parallel: true
 
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v4
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          path: .venv # Path to Poetry's virtual environment directory
+          key: venv-${{ runner.os }}-py${% raw %}${{ matrix.python-version }}{% endraw %}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            venv-${{ runner.os }}-py${% raw %}${{ matrix.python-version }}{% endraw %}-
 
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root # Install all groups for CI checks
+      - name: Install dependencies (core and dev)
+        # Run if cache wasn't hit or if a more specific install is needed.
+        # Poetry install by default installs main and dev dependencies.
+        # --no-root is often used in CI if the project itself isn't installed as editable.
+        run: poetry install --no-interaction --no-root
+        # If you only wanted specific groups for CI, you could use:
+        # run: poetry install --no-interaction --no-root --with dev,lint,test # Example groups
 
-      # If you want to install specific groups only:
-      # - name: Install dependencies (core + dev)
-      #   if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      #   run: poetry install --no-interaction --no-root --with dev
-
-      {% if cookiecutter.include_tests == 'yes' or cookiecutter.include_logging == 'yes' %} # Assuming linters are in dev group
-      - name: Lint with Ruff (if linters are set up)
+      {% if cookiecutter.include_tests == 'yes' or cookiecutter.include_logging == 'yes' %} {# Assuming linters are in dev group or similar #}
+      - name: Lint with Ruff
         run: |
           poetry run ruff check .
           poetry run ruff format --check .
+      # - name: Type check with Mypy (optional, add if Mypy is in dev dependencies)
+      #   run: |
+      #     poetry run mypy src tests
       {% endif %}
 
       {% if cookiecutter.include_tests == 'yes' %}
