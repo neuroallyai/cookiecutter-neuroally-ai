@@ -1,0 +1,29 @@
+# Conda environment configuration for {{ cookiecutter.project_name }}
+# This file is used by 'conda env create -f environment.yml -n {{ cookiecutter.project_slug }}'
+# which is called by the post-generation script if Conda support is enabled.
+
+name: {{ cookiecutter.project_slug }}
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python={{ cookiecutter.python_version }}
+  - pip
+  - poetry>=1.8.0
+
+  # Add any other base dependencies that are best managed by Conda.
+  # Examples:
+  # - cudatoolkit=11.8
+  # - compilers
+  # - nodejs
+
+# To create the environment from this file (if not using the post-gen script):
+# conda env create -f environment.yml
+#
+# To activate the environment:
+# conda activate {{ cookiecutter.project_slug }}
+#
+# To update the environment if you change this file:
+# conda env update -f environment.yml --prune

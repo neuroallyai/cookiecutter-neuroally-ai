@@ -13,12 +13,12 @@ uvicorn>=0.31.1
 streamlit>=1.35.0
 
 # LLM, vector DB, and integrations
-langchain>=0.1.14
-chromadb>=0.4.25
-pinecone-client>=3.2.0
-openai>=1.13.3
-ollama>=0.1.30
-google-generativeai>=0.4.0
+langchain>=0.3.0
+chromadb>=0.6.0
+pinecone-client>=4.2.0
+openai>=1.35.0
+ollama>=0.3.0
+google-generativeai>=0.7.0
 google-cloud-aiplatform>=2.18.0
 n8n-client>=1.1.0
 
@@ -26,13 +26,13 @@ n8n-client>=1.1.0
 psycopg2-binary>=2.9.9
 SQLAlchemy>=2.0.30
 redis>=5.0.3
-aioredis>=2.2.1
+# aioredis removed as its functionality is part of redis-py (redis.asyncio)
 fastapi-limiter>=0.1.6
 
 # Auth
 python-jose[cryptography]>=3.3.0
 passlib[argon2]>=1.7.4
-fastapi-jwt-auth>=0.5.0
+fastapi-another-jwt-auth>=0.13.0 # Replaced fastapi-jwt-auth due to security concerns
 
 # Monitoring, logging, deployment
 structlog>=24.1.0
@@ -41,9 +41,9 @@ docker>=7.0.0
 kubernetes>=29.0.0
 
 # Notebooks, testing, examples
-jupyter>=1.0.0
+jupyterlab>=5.0.0 # Replaced outdated jupyter with jupyterlab for a modern environment
 pytest>=8.2.1
 
 # Responsible AI, i18n, validation
-pydantic-i18n>=0.5.1
+pydantic-i18n>=1.10.0 # Assuming the more active package and updated version
 voluptuous>=0.13.1

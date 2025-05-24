@@ -6,7 +6,7 @@ authors = ["{{cookiecutter.author_name}} <{{cookiecutter.author_email}}>"]
 readme = "README.md"
 license = "{{cookiecutter.license}}"
 packages = [
-    { include = "src/{{cookiecutter.project_slug}}" }
+    { include = "{{cookiecutter.project_slug}}", from = "src" }
 ]
 
 [tool.poetry.dependencies]
