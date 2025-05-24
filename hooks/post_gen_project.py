@@ -9,6 +9,7 @@ PROJECT_DIR = Path(os.getcwd())
 # These variables are templated by Cookiecutter
 SLUG = "{{ cookiecutter.project_slug }}"
 USE_CONDA = "{{ cookiecutter.use_conda_support }}" == "yes"
+PROJECT_NAME = "{{ cookiecutter.project_name }}"  # Added for commit message
 
 # --- Conditional Debug Printing ---
 if os.environ.get("PROJECT_SETUP_DEBUG"):
@@ -45,12 +46,10 @@ def run(command_args, **kwargs):
 
     try:
         # Pass cwd explicitly to ensure commands run in the project directory
-        # This is generally safer than os.chdir.
         subprocess.run(
             command_args, shell=is_shell_command, check=True, cwd=PROJECT_DIR, **kwargs
         )
     except FileNotFoundError as e:
-        # Try to provide a more helpful error if a command isn't found
         cmd_name = command_args if is_shell_command else command_args[0]
         print(
             f"❌ Error: Command '{cmd_name}' not found. Please ensure it's installed and in your PATH."
@@ -60,11 +59,10 @@ def run(command_args, **kwargs):
     except subprocess.CalledProcessError as e:
         print(f"❌ Command failed: {cmd_display_str}")
         print(f"   Return code: {e.returncode}")
-        if e.stdout:
-            print(f"   Stdout: {e.stdout.decode(errors='ignore')}")
-        if e.stderr:
-            print(f"   Stderr: {e.stderr.decode(errors='ignore')}")
-        # The main exception handler will catch this and exit if this function doesn't.
+        if e.stdout and e.stdout.strip():  # Only print if there's actual output
+            print(f"   Stdout: {e.stdout.decode(errors='ignore').strip()}")
+        if e.stderr and e.stderr.strip():  # Only print if there's actual output
+            print(f"   Stderr: {e.stderr.decode(errors='ignore').strip()}")
         raise  # Re-raise to be caught by the main try-except block
 
 
@@ -77,18 +75,23 @@ def ensure_poetry_installed():
         )
         try:
             run(["pip", "install", "--user", "poetry"])
-            # Note: User might need to ensure the user script path is in their system PATH.
             print(
                 "✅ Poetry installed via pip. Please ensure your PATH is configured correctly."
             )
-            print("   You might need to open a new terminal session.")
-            if shutil.which("poetry") is None:
+            print(
+                "   You might need to open a new terminal session for 'poetry' to be available."
+            )
+            if shutil.which("poetry") is None:  # Re-check after install attempt
                 print(
                     "   WARNING: Poetry still not found in PATH after pip install --user."
                 )
                 print(
                     "            Please verify your PATH or install Poetry using the official installer."
                 )
+                print(
+                    "            Skipping further Poetry-dependent steps in this script if any."
+                )
+                return False  # Indicate poetry is not ready
         except Exception as e:
             print("❌ Failed to install Poetry using pip.")
             print(
@@ -97,11 +100,55 @@ def ensure_poetry_installed():
             sys.exit(1)
     else:
         print("✅ Poetry already installed.")
+    return True  # Indicate poetry is ready
+
+
+def initialize_git_repo():
+    """Initializes a Git repository in the project directory."""
+    if shutil.which("git") is None:
+        print("\n⚠️ Git not found. Skipping Git repository initialization.")
+        print(
+            "   Please install Git if you want to use version control: https://git-scm.com/downloads"
+        )
+        return
+
+    if (PROJECT_DIR / ".git").exists():
+        print("\n✨ Git repository already initialized.")
+        return
+
+    print("\n✨ Initializing Git repository...")
+    try:
+        run(["git", "init"])
+        run(["git", "add", "."])  # Stage all generated files
+        commit_message = (
+            f"feat: Initial commit for {PROJECT_NAME} from Cookiecutter template"
+        )
+        # Allow commit to fail if git user not configured, but don't stop script
+        try:
+            run(["git", "commit", "-m", commit_message])
+            print("✅ Git repository initialized and initial commit made.")
+        except subprocess.CalledProcessError as e:
+            print(
+                f"⚠️  Could not make initial commit (git user/email may not be configured): {e}"
+            )
+            print(
+                "   Please run 'git commit' manually after configuring git if needed."
+            )
+
+        print("\n   Next steps for Git:")
+        print("   1. Create a remote repository (e.g., on GitHub, GitLab).")
+        print("   2. Add the remote: git remote add origin YOUR_REMOTE_REPOSITORY_URL")
+        print(
+            "   3. Push your initial commit: git push -u origin main (or your default branch name)"
+        )
+    except Exception as e:
+        print(f"⚠️ Failed to initialize Git repository: {e}")
+        print("   Please run 'git init' manually if desired.")
 
 
 # --- Environment Creation Functions ---
 def create_poetry_venv():
-    """Creates a virtual environment using Poetry."""
+    """Creates a virtual environment and installs core dependencies using Poetry."""
     print("\n🐍 Setting up Python environment using Poetry...")
     pyproject_path = PROJECT_DIR / "pyproject.toml"
     if not pyproject_path.exists():
@@ -114,18 +161,20 @@ def create_poetry_venv():
         )
         sys.exit(1)
 
-    ensure_poetry_installed()
+    if not ensure_poetry_installed():
+        print("   Skipping Poetry dependency installation as Poetry is not available.")
+        return
 
-    print("Installing dependencies using Poetry (this might take a while)...")
-    run(["poetry", "install"])
-    print("\n✅ Poetry virtual environment created and dependencies installed.")
+    print("Installing core dependencies using Poetry (this might take a while)...")
+    run(["poetry", "install"])  # This installs main and default dev dependencies
+    print("\n✅ Poetry virtual environment created and core dependencies installed.")
     print("   Activate it by navigating to your project directory and running:")
     print("     poetry shell")
 
 
 def create_conda_env():
     """
-    Creates a Conda environment using a project's environment.yml file.
+    Creates a Conda environment and installs core dependencies using Poetry within Conda.
     Requires Anaconda or Miniconda to be installed and 'conda' to be in PATH.
     """
     print("\n🐍 Setting up Python environment using Conda...")
@@ -143,59 +192,74 @@ def create_conda_env():
     print(
         f"Creating Conda environment '{SLUG}' from {env_file_path} (this might take a while)..."
     )
-    run(["conda", "env", "create", "-f", str(env_file_path), "-n", SLUG])
+    run(
+        ["conda", "env", "create", "-f", str(env_file_path), "-n", SLUG, "--force"]
+    )  # Added --force to overwrite if exists
 
     print(
-        f"\nInstalling Poetry-managed dependencies into Conda environment '{SLUG}'..."
+        f"\nInstalling core Poetry-managed dependencies into Conda environment '{SLUG}'..."
     )
     print(
         "   IMPORTANT: Ensure your environment.yml file lists 'poetry' as a dependency"
     )
     print("   to make it available within the Conda environment for the next step.")
-    # Ensure poetry is available globally or installed via environment.yml for this to work
-    ensure_poetry_installed()  # Good to have as a fallback if not in environment.yml
-    # but ideally environment.yml manages this for conda envs.
 
-    run(["conda", "run", "-n", SLUG, "poetry", "install", "--no-venv"])
+    # Check if Poetry is callable within the Conda environment context before trying to use it
+    # ensure_poetry_installed() here would check/install global/user poetry, which might not be
+    # the one used by `conda run`. It's better to rely on environment.yml to provide Poetry.
+    # If environment.yml doesn't provide poetry, the `conda run poetry` command might fail.
+    # The user will then see the error and know to fix environment.yml or ensure poetry is in PATH.
 
-    print(f"\n✅ Conda environment '{SLUG}' created and dependencies installed.")
+    run(
+        ["conda", "run", "-n", SLUG, "poetry", "install"]
+    )  # Installs main and default dev dependencies
+
+    print(f"\n✅ Conda environment '{SLUG}' created and core dependencies installed.")
     print("   Activate it by running:")
     print(f"     conda activate {SLUG}")
 
 
 # --- Main Execution ---
 def main():
-    print(f"\n🔧 Initializing environment for project: {SLUG}")
+    print(f"\n🚀 Starting project setup for: {PROJECT_NAME} ({SLUG})")
 
+    initialize_git_repo()  # Initialize Git repository first
+
+    print(f"\n🔧 Setting up Python environment...")
     if USE_CONDA:
         create_conda_env()
     else:
         create_poetry_venv()
 
+    print("\n💡 Next Steps & Optional Features:")
+    print("   Your project is set up with core dependencies.")
     print(
-        "\n💡 Optional: If your project includes a 'requirements_full.txt' for all optional dependencies,"
+        "   For optional features you may have selected during generation (e.g., FastAPI, Langchain, etc.),"
     )
-    print("   you can install them after activating your environment by running:")
-    if USE_CONDA:
-        print(f"     conda run -n {SLUG} pip install -r requirements_full.txt")
-    else:
-        print("     poetry run pip install -r requirements_full.txt")
     print(
-        "   Alternatively, use 'requirements.txt' for core/selected features (usually handled by 'poetry install')."
+        "   please refer to the 'Installing Optional Features' section in your project's README.md."
     )
+    print(
+        "   This will guide you on how to install them using Poetry's dependency groups"
+    )
+    print("   (e.g., 'poetry install --with <feature_group>' or equivalent for Conda).")
 
     print("\n🎉 Project setup complete!")
+    print(f"   Navigate to your project directory: cd {SLUG}")
+    print("   Then activate your environment and start developing!")
 
 
 if __name__ == "__main__":
     try:
         main()
     except subprocess.CalledProcessError:
-        # The 'run' function now prints details, so this is a fallback.
         print(
             "\n❌ Environment setup failed due to a command error. Please review the output above."
         )
         sys.exit(1)
     except Exception as e:
         print(f"\n❌ An unexpected error occurred during environment setup: {e}")
+        import traceback
+
+        traceback.print_exc()  # Print full traceback for unexpected errors
         sys.exit(1)

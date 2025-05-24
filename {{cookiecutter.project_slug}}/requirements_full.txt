@@ -1,49 +1,32 @@
-# Core dependencies
-numpy>=2.0.2
-pydantic>=2.11.5
-pydantic-settings>=2.9.1
-python-dotenv>=1.1.0
-PyYAML>=6.0.2
-hydra-zen>=0.14.0
-requests>=2.32.3
+# This project uses Poetry for dependency management.
+# The primary definition of all Python dependencies (core and optional)
+# is in the `pyproject.toml` file.
+#
+# This `requirements.txt` file is NOT the primary source of dependencies
+# for developing or installing this project if you are using Poetry or Conda
+# as described in the README.md.
+#
+# --- How to Generate a `requirements.txt` from Poetry ---
+# If you need a `requirements.txt` file for specific deployment scenarios,
+# compatibility with other tools, or for environments where Poetry is not
+# directly used, you can generate it from your `pyproject.toml` and `poetry.lock`
+# files using Poetry's export command. This ensures consistency.
+#
+# 1. To generate `requirements.txt` with only main production dependencies:
+#    poetry export -f requirements.txt --output requirements.txt --without-hashes
+#
+# 2. To include dependencies from specific optional groups (e.g., 'dev', 'fastapi'):
+#    poetry export -f requirements.txt --output requirements-dev-fastapi.txt --with dev,fastapi --without-hashes
+#
+# 3. To include dependencies from ALL optional groups (creating a "full" list):
+#    poetry export -f requirements.txt --output requirements-all.txt --all-extras --without-hashes
+#    (Note: --all-extras will include all dependencies from all defined optional groups)
+#
+# It is strongly recommended to generate this file via `poetry export` rather than
+# maintaining it manually, to ensure it accurately reflects your project's resolved dependencies.
+#
+# For initial project setup, please follow the Poetry or Conda instructions in the
+# main README.md file to install dependencies directly from `pyproject.toml`.
 
-# Web frameworks & API
-fastapi>=0.110.0
-uvicorn>=0.31.1
-streamlit>=1.35.0
-
-# LLM, vector DB, and integrations
-langchain>=0.3.0
-chromadb>=0.6.0
-pinecone-client>=4.2.0
-openai>=1.35.0
-ollama>=0.3.0
-google-generativeai>=0.7.0
-google-cloud-aiplatform>=2.18.0
-n8n-client>=1.1.0
-
-# Databases and cache
-psycopg2-binary>=2.9.9
-SQLAlchemy>=2.0.30
-redis>=5.0.3
-# aioredis removed as its functionality is part of redis-py (redis.asyncio)
-fastapi-limiter>=0.1.6
-
-# Auth
-python-jose[cryptography]>=3.3.0
-passlib[argon2]>=1.7.4
-fastapi-another-jwt-auth>=0.13.0 # Replaced fastapi-jwt-auth due to security concerns
-
-# Monitoring, logging, deployment
-structlog>=24.1.0
-prometheus-client>=0.20.0
-docker>=7.0.0
-kubernetes>=29.0.0
-
-# Notebooks, testing, examples
-jupyterlab>=5.0.0 # Replaced outdated jupyter with jupyterlab for a modern environment
-pytest>=8.2.1
-
-# Responsible AI, i18n, validation
-pydantic-i18n>=1.10.0 # Assuming the more active package and updated version
-voluptuous>=0.13.1
+# This template file intentionally does not list dependencies by default.
+# Please generate it as needed using the 'poetry export' commands above.
