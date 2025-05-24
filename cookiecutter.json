@@ -1,6 +1,7 @@
 {
   "project_name": "NeuroAlly AI",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "version": "0.1.0",
   "author_name": "Jamie Scott Craik",
   "author_email": "jamie@example.com",
   "description": "LLM project scaffold",
@@ -20,6 +21,22 @@
     "yes",
     "no"
   ],
+  "enable_advanced_options": [
+    "yes",
+    "no"
+  ],
+  "include_cache": [
+    "yes",
+    "no"
+  ],
+  "include_ci_cd": [
+    "yes",
+    "no"
+  ],
+  "include_cli": [
+    "yes",
+    "no"
+  ],
   "include_code_of_conduct": [
     "yes",
     "no"
@@ -28,63 +45,7 @@
     "yes",
     "no"
   ],
-  "include_security": [
-    "yes",
-    "no"
-  ],
-  "include_github_templates": [
-    "yes",
-    "no"
-  ],
-  "enable_advanced_options": [
-    "yes",
-    "no"
-  ],
-  "include_streamlit": [
-    "yes",
-    "no"
-  ],
-  "include_fastapi": [
-    "yes",
-    "no"
-  ],
-  "include_ui": [
-    "yes",
-    "no"
-  ],
-  "include_langchain": [
-    "yes",
-    "no"
-  ],
-  "include_openai": [
-    "yes",
-    "no"
-  ],
-  "include_ollama": [
-    "yes",
-    "no"
-  ],
-  "include_ollama_models": [
-    "yes",
-    "no"
-  ],
-  "include_gemini": [
-    "yes",
-    "no"
-  ],
-  "include_vertex": [
-    "yes",
-    "no"
-  ],
-  "include_db": [
-    "yes",
-    "no"
-  ],
-  "include_cache": [
-    "yes",
-    "no"
-  ],
-  "include_redis": [
+  "include_data_privacy_guidelines": [
     "yes",
     "no"
   ],
@@ -92,47 +53,11 @@
     "yes",
     "no"
   ],
-  "include_kubernetes": [
+  "include_db": [
     "yes",
     "no"
   ],
   "include_docker": [
-    "yes",
-    "no"
-  ],
-  "include_ci_cd": [
-    "yes",
-    "no"
-  ],
-  "include_n8n": [
-    "yes",
-    "no"
-  ],
-  "include_tests": [
-    "yes",
-    "no"
-  ],
-  "include_logging": [
-    "yes",
-    "no"
-  ],
-  "include_monitoring": [
-    "yes",
-    "no"
-  ],
-  "include_responsible_ai": [
-    "yes",
-    "no"
-  ],
-  "include_data_privacy_guidelines": [
-    "yes",
-    "no"
-  ],
-  "include_cli": [
-    "yes",
-    "no"
-  ],
-  "include_notebooks": [
     "yes",
     "no"
   ],
@@ -144,7 +69,83 @@
     "yes",
     "no"
   ],
+  "include_fastapi": [
+    "yes",
+    "no"
+  ],
+  "include_gemini": [
+    "yes",
+    "no"
+  ],
+  "include_github_templates": [
+    "yes",
+    "no"
+  ],
+  "include_kubernetes": [
+    "yes",
+    "no"
+  ],
+  "include_langchain": [
+    "yes",
+    "no"
+  ],
+  "include_logging": [
+    "yes",
+    "no"
+  ],
+  "include_monitoring": [
+    "yes",
+    "no"
+  ],
+  "include_n8n": [
+    "yes",
+    "no"
+  ],
+  "include_notebooks": [
+    "yes",
+    "no"
+  ],
+  "include_ollama": [
+    "yes",
+    "no"
+  ],
+  "include_ollama_models": [
+    "yes",
+    "no"
+  ],
+  "include_openai": [
+    "yes",
+    "no"
+  ],
+  "include_responsible_ai": [
+    "yes",
+    "no"
+  ],
+  "include_redis": [
+    "yes",
+    "no"
+  ],
+  "include_security": [
+    "yes",
+    "no"
+  ],
+  "include_streamlit": [
+    "yes",
+    "no"
+  ],
+  "include_tests": [
+    "yes",
+    "no"
+  ],
   "include_tracking": [
+    "yes",
+    "no"
+  ],
+  "include_ui": [
+    "yes",
+    "no"
+  ],
+  "include_vertex": [
     "yes",
     "no"
   ]
