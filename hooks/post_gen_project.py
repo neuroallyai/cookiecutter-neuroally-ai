@@ -4,10 +4,13 @@ import sys
 import shutil
 from pathlib import Path
 
-# 1. This is always the directory where your new project is generated!
 PROJECT_DIR = Path(os.getcwd())
 slug = "{{ cookiecutter.project_slug }}"
 use_conda = "{{ cookiecutter.use_conda_support }}" == "yes"
+
+print(f"DEBUG: Current working directory: {os.getcwd()}")
+print(f"DEBUG: Files in CWD: {os.listdir('.')}")
+print(f"DEBUG: Looking for pyproject.toml at: {PROJECT_DIR / 'pyproject.toml'}")
 
 
 def run(cmd, **kwargs):
