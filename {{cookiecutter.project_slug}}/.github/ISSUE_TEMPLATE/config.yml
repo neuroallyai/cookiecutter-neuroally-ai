@@ -1,0 +1,13 @@
+# .github/ISSUE_TEMPLATE/config.yml
+# This configuration guides users when they create new issues.
+
+blank_issues_enabled: false  # Set to true if you want to allow users to open blank issues.
+                           # False encourages using specific templates.
+contact_links:
+  - name: ❓ Questions & Discussions
+    url: https://github.com/YOUR_USERNAME_HERE/{{ cookiecutter.project_slug }}/discussions # TODO: Replace YOUR_USERNAME_HERE or template if var exists
+    about: Please use GitHub Discussions for questions, general feedback, or open-ended discussions.
+
+  - name: 🔒 Security Vulnerability Report
+    url: ../../SECURITY.md # Relative link to the SECURITY.md file in the project root
+    about: Please review our security policy and report vulnerabilities privately.
