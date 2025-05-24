@@ -1,91 +1,50 @@
 {
-  // 📌 Your project's full name (Title Case)
   "project_name": "NeuroAlly AI",
-
-  // 🔧 Slug = safe folder name and Python package name (e.g. neuroally_ai_chatbot)
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-
-  // 👤 Your name (used in README, LICENSE, etc.)
   "author_name": "Jamie Scott Craik",
-
-  // 📧 Your contact email (used in README and metadata)
   "author_email": "jamie@example.com",
-
-  // 📝 Short one-liner explaining what this project does
   "description": "LLM project scaffold",
-
-  // 🐍 Python version to lock the environment to
   "python_version": "3.10",
-
-  // ⚖️ Open-source license selector — determines reuse rules
-  "license": [
-    "MIT",         // ✅ Most permissive, great for community/open projects
-    "Apache-2.0",  // ✅ Like MIT, but adds patent protections
-    "None"         // 🔒 Closed source (not recommended for OSS)
-  ],
-
-  // 🎯 Project template presets (choose your starting kit)
+  "license": ["MIT", "Apache-2.0", "None"],
   "project_preset": [
     "chatbot - Build a conversation UI + LLM backend",
     "rag-pipeline - Retrieval augmented generation with vector DB",
     "trainer - Fine-tune models on custom datasets",
     "minimal - Just the essentials"
   ],
-
-  // 🧪 Do you want to support Conda environments? (yes = creates environment.yml)
   "use_conda_support": ["yes", "no"],
-
-  // 📚 Include community & governance files (recommended for GitHub OSS)
-  "include_code_of_conduct": ["yes", "no"],   // 🤝 Contributor conduct policy
-  "include_contributing": ["yes", "no"],      // 🛠 How to contribute, set up, run tests
-  "include_security": ["yes", "no"],          // 🔐 Security vulnerability reporting
-  "include_github_templates": ["yes", "no"],  // 📋 GitHub Issue & PR templates
-
-  // 🔓 Unlock advanced features and integrations (below)
+  "include_code_of_conduct": ["yes", "no"],
+  "include_contributing": ["yes", "no"],
+  "include_security": ["yes", "no"],
+  "include_github_templates": ["yes", "no"],
   "enable_advanced_options": ["yes", "no"],
-
-  // 🚀 Advanced config — only used if enable_advanced_options is set to "yes"
   "_advanced_options": {
-
-    // UI options
-    "include_streamlit": ["yes", "no"],    // 🎨 Add a Streamlit UI (great for demos, local apps)
-    "include_fastapi": ["yes", "no"],      // ⚙️ Add a FastAPI backend (for APIs and microservices)
-    "include_ui": ["yes", "no"],           // 🖼️ Include any UI code at all
-
-    // Core app features
-    "include_auth": ["yes", "no"],         // 🔐 Add authentication scaffolding
-    "include_cache": ["yes", "no"],        // 💾 Local or Redis caching support
-    "include_db": ["yes", "no"],           // 🗄️ Add SQL/NoSQL database support
-    "include_cli": ["yes", "no"],          // 💻 Add CLI interface with Typer
-
-    // Monitoring, Ops, Deployment
-    "include_logging": ["yes", "no"],      // 📋 Structured logging config
-    "include_monitoring": ["yes", "no"],   // 📊 Model and system metrics
-    "include_kubernetes": ["yes", "no"],   // ☸️ K8s deploy YAMLs
-    "include_docker": ["yes", "no"],       // 🐳 Docker + Compose support
-    "include_ci_cd": ["yes", "no"],        // 🔁 GitHub Actions or other CI
-
-    // Workflow / Automation
-    "include_n8n": ["yes", "no"],          // 🔄 Add n8n integration (for workflow automation)
-    "include_langchain": ["yes", "no"],    // 🧠 Add LangChain support (agent workflows)
-    "include_redis": ["yes", "no"],        // 🧱 Add Redis cache layer
-
-    // LLM Providers
-    "include_openai": ["yes", "no"],       // 🤖 Enable OpenAI API integration
-    "include_ollama": ["yes", "no"],       // 🐻 Enable Ollama (local models)
-    "include_ollama_models": ["yes", "no"],// 🧩 Add example models for Ollama
-    "include_gemini": ["yes", "no"],       // 🌈 Google Gemini support
-    "include_vertex": ["yes", "no"],       // ☁️ GCP Vertex AI integration
-
-    // Project scaffolding extras
-    "include_notebooks": ["yes", "no"],    // 📓 Add example Jupyter notebooks
-    "include_tests": ["yes", "no"],        // ✅ Unit and integration test folders
-    "include_docs": ["yes", "no"],         // 📖 Markdown docs (system design, user stories, etc.)
-    "include_examples": ["yes", "no"],     // 🎯 Add working app or notebook examples
-
-    // Ethical AI, Tracking, Schema
-    "include_tracking": ["yes", "no"],         // 🧪 W&B or MLflow experiment tracking
-    "include_responsible_ai": ["yes", "no"],   // ⚖️ Bias/fairness testing, explainability (XAI)
-    "include_data_validation": ["yes", "no"]   // ✅ Schema checks for data inputs/outputs
+    "include_streamlit": ["yes", "no"],
+    "include_fastapi": ["yes", "no"],
+    "include_ui": ["yes", "no"],
+    "include_auth": ["yes", "no"],
+    "include_cache": ["yes", "no"],
+    "include_db": ["yes", "no"],
+    "include_cli": ["yes", "no"],
+    "include_logging": ["yes", "no"],
+    "include_monitoring": ["yes", "no"],
+    "include_kubernetes": ["yes", "no"],
+    "include_docker": ["yes", "no"],
+    "include_ci_cd": ["yes", "no"],
+    "include_n8n": ["yes", "no"],
+    "include_langchain": ["yes", "no"],
+    "include_redis": ["yes", "no"],
+    "include_openai": ["yes", "no"],
+    "include_ollama": ["yes", "no"],
+    "include_ollama_models": ["yes", "no"],
+    "include_gemini": ["yes", "no"],
+    "include_vertex": ["yes", "no"],
+    "include_notebooks": ["yes", "no"],
+    "include_tests": ["yes", "no"],
+    "include_docs": ["yes", "no"],
+    "include_examples": ["yes", "no"],
+    "include_tracking": ["yes", "no"],
+    "include_responsible_ai": ["yes", "no"],
+    "include_data_validation": ["yes", "no"]
   }
 }
