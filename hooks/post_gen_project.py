@@ -1,10 +1,11 @@
 import os
 import subprocess
 import sys
-from pathlib import Path
 import shutil
+from pathlib import Path
 
-PROJECT_DIR = Path(__file__).resolve().parent.parent
+# 1. This is always the directory where your new project is generated!
+PROJECT_DIR = Path(os.getcwd())
 slug = "{{ cookiecutter.project_slug }}"
 use_conda = "{{ cookiecutter.use_conda_support }}" == "yes"
 
@@ -15,7 +16,7 @@ def run(cmd, **kwargs):
 
 
 def ensure_poetry():
-    """Ensure poetry is installed system-wide before continuing."""
+    """Ensure Poetry is installed system-wide before continuing."""
     if shutil.which("poetry") is None:
         print("Poetry not found. Installing Poetry...")
         run("pip install --user poetry")
@@ -25,7 +26,16 @@ def ensure_poetry():
 
 
 def create_poetry_venv():
+    pyproject_path = PROJECT_DIR / "pyproject.toml"
+    if not pyproject_path.exists():
+        print(
+            "❌ No pyproject.toml found in the new project folder. Aborting environment setup."
+        )
+        print("   Make sure your template includes pyproject.toml in the root.")
+        sys.exit(1)
     ensure_poetry()
+    # Always work in the project dir
+    os.chdir(PROJECT_DIR)
     run("poetry install")
     print("\n✅ Poetry venv created. Activate with:\n   poetry shell")
 
@@ -44,7 +54,6 @@ def create_conda_env():
 
 
 def main():
-    os.chdir(PROJECT_DIR)
     print(f"\n🔧 Setting up environment for: {slug}")
     if use_conda:
         create_conda_env()
