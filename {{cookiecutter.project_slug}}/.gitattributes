@@ -1,0 +1,103 @@
+# Auto-detect text files and ensure they use LF line endings in the repository.
+# On checkout, Git will handle conversion to CRLF on Windows if core.autocrlf is true.
+* text=auto eol=lf
+
+# Explicitly declare common text file types to use LF.
+# This reinforces the rule and helps Git's heuristics.
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.csv text eol=lf
+*.tsv text eol=lf
+*.sh text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.xml text eol=lf
+*.svg text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.env.example text eol=lf
+Makefile text eol=lf
+
+# Declare common script files that should have LF endings, especially for shebangs.
+*.bash text eol=lf
+
+# For Windows-specific batch files, you might want CRLF (optional, less common in cross-platform projects)
+# *.bat text eol=crlf
+# *.cmd text eol=crlf
+
+# Declare common binary file types.
+# This prevents Git from attempting to normalize line endings or show text diffs.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.bz2 binary
+*.rar binary
+*.7z binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+*.ppt binary
+*.pptx binary
+*.odt binary
+*.ods binary
+*.odp binary
+*.epub binary
+*.mobi binary
+*.mp3 binary
+*.mp4 binary
+*.avi binary
+*.wav binary
+*.ogg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.DS_Store binary # Though usually in .gitignore, doesn't hurt here
+
+# Compiled Python extensions or other binaries
+*.so binary
+*.dll binary
+*.exe binary
+*.jar binary
+*.class binary
+*.pyc binary # Usually in .gitignore, but marking as binary is also fine
+*.pyo binary # Usually in .gitignore
+
+# Jupyter Notebooks:
+# Notebooks are JSON but can have large diffs due to output and metadata.
+# Option 1: Treat as binary for diffing (simple, avoids noisy diffs in basic git diff)
+# *.ipynb -diff
+# Option 2: Specify a custom diff driver (requires user setup, e.g., with nbdime)
+# *.ipynb diff=jupyter
+# For a template, simply ensuring they are treated as text with LF endings is a good start,
+# and users can configure custom diff tools if they wish.
+# The *.json rule above might cover .ipynb if not explicitly listed.
+# Let's be explicit:
+*.ipynb text eol=lf
+# If you use nbdime or similar tools, you might add:
+# *.ipynb diff=ipynb
+
+# SQLite databases
+*.sqlite binary
+*.sqlite3 binary
+*.db binary
+
+# Pickle files
+*.pkl binary
+*.pickle binary
