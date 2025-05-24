@@ -133,10 +133,10 @@ optional = true
 prometheus-client = ">=0.20.0"
 
 [tool.poetry.group.responsible_ai_tools]
-optional = true
+optional = true # For include_responsible_ai
 
 [tool.poetry.group.responsible_ai_tools.dependencies]
-pydantic-i18n = ">=1.10.0"
+pydantic-i18n = "^0.4.5"  # <<< CORRECTED based on available version
 
 [tool.poetry.group.data_validation_tools]
 optional = true
