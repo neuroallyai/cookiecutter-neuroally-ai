@@ -1,0 +1,55 @@
+# {{cookiecutter.project_slug}}/mkdocs.yml
+site_name: {{ cookiecutter.project_name }}
+site_description: {{ cookiecutter.description }}
+site_author: {{ cookiecutter.author_name }}
+# site_url: TODO_YOUR_DOCUMENTATION_URL_HERE
+
+repo_url: TODO_YOUR_GIT_REPOSITORY_URL_HERE # e.g., https://github.com/your_username/{{ cookiecutter.project_slug }}
+edit_uri: edit/main/docs/ # Or your default branch and docs folder
+
+nav:
+  - Home: index.md
+  - Introduction: introduction.md
+  - Getting Started: getting_started.md
+  - User Guide:
+    - Overview: user_guide/index.md
+    # - Basic Usage: user_guide/basic_usage.md # TODO: Create these files
+    # - Advanced Features: user_guide/advanced_features.md
+  - Configuration: configuration.md
+  - API Reference: api/index.md
+  - Changelog: changelog.md
+  - Contributing: ../CONTRIBUTING.md # Link to file in root if it exists
+  - License: ../LICENSE # Link to file in root
+
+theme:
+  name: material # A popular and clean theme
+  # palette:
+  #   primary: indigo
+  #   accent: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    # - content.tabs.link # If you use markdown tabs
+  # logo: assets/logo.png # TODO: Add your logo to docs/assets/
+  # favicon: assets/favicon.png # TODO: Add your favicon to docs/assets/
+
+# plugins: # Uncomment and add plugins if needed
+#   - search
+  # - mkdocstrings: # For auto-generating API docs from Python docstrings
+  #     handlers:
+  #       python:
+  #         options:
+  #           show_root_heading: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true # Adds '#' anchor links to headings
