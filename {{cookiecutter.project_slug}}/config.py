@@ -117,3 +117,6 @@ class Settings(BaseSettings):
 
 # Create a single, globally accessible instance of the settings.
 # Other modules in your package can import it like
+#   from {{ cookiecutter.project_slug }}.config import settings
+#   api_key = settings.OPENAI_API_KEY
+settings = Settings()
