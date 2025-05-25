@@ -41,7 +41,8 @@
 
 {{ cookiecutter.description }}
 
-This project was generated from the **NeuroAlly.AI Cookiecutter Project Scaffold** (Version: {{ cookiecutter.version }}).
+This project was generated from the **NeuroAlly.AI Cookiecutter Project Scaffold** (Version: {{ cookiecutter.version }}).  
+It includes core Pydantic tools (`pydantic`, `pydantic-settings`, `pydantic-i18n`, and `instructor`) by default.
 
 ---
 ## 📜 Table of Contents
@@ -82,6 +83,8 @@ This project scaffold aims to provide a robust starting point for developing app
 * *(Example: Scalable and maintainable code structure)*
 * *(Example: Tools and workflows that support rapid prototyping and iteration)*
 
+Core Pydantic libraries including `pydantic`, `pydantic-settings`, `pydantic-i18n`, and `instructor` are included in the base installation.
+
 ---
 ## 📋 Prerequisites
 
@@ -111,7 +114,7 @@ cd {{ cookiecutter.project_slug }}
 
 ### 2. Environment Setup & Core Installation
 
-This project uses {% if cookiecutter.use_conda_support == "yes" %}Conda (with Poetry for dependency management within the Conda environment){% else %}Poetry{% endif %} for environment and dependency management. The `post_gen_project.py` script (part of the Cookiecutter template) attempts to automate this initial setup when the project is first generated. This step installs core dependencies defined in `pyproject.toml`.
+This project uses {% if cookiecutter.use_conda_support == "yes" %}Conda (with Poetry for dependency management within the Conda environment){% else %}Poetry{% endif %} for environment and dependency management. The `post_gen_project.py` script (part of the Cookiecutter template) attempts to automate this initial setup when the project is first generated. This step installs core dependencies defined in `pyproject.toml` (including pydantic, pydantic-settings, pydantic-i18n, and instructor).
 
 If you need to set up the environment manually or recreate it:
 
@@ -153,128 +156,122 @@ Open the `.env` file and update it with your specific values (e.g., API keys, da
 
 ### 4. Installing Optional Features
 
-This project uses Poetry's dependency groups to manage optional features. Based on the choices you made during project generation (`enable_advanced_options = {{ cookiecutter.enable_advanced_options }}`), you can install additional capabilities. All optional dependencies are defined in `pyproject.toml`.
+This project uses Poetry's dependency groups to manage additional optional features beyond the core set. Based on the choices you made during project generation (`enable_advanced_options = {{ cookiecutter.enable_advanced_options }}`), you can install these capabilities. All optional dependencies are defined in `pyproject.toml`.
 
 {% if cookiecutter.enable_advanced_options == 'yes' %}
 To install selected optional features:
 
 {% if cookiecutter.include_tests == 'yes' %}
-**Testing Utilities (pytest, etc.):**
+**Testing Utilities (pytest, etc.):** (Group: dev)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with dev{% else %}poetry install --with dev{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_notebooks == 'yes' %}
-**Jupyter Notebooks Support (JupyterLab):**
+**Jupyter Notebooks Support (JupyterLab):** (Group: notebooks)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with notebooks{% else %}poetry install --with notebooks{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_fastapi == 'yes' %}
-**FastAPI Web Framework:**
+**FastAPI Web Framework:** (Group: fastapi)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with fastapi{% else %}poetry install --with fastapi{% endif %}
 ```
-{% if cookiecutter.include_cache == 'yes' %}(This group includes fastapi-limiter as configured in pyproject.toml if you selected caching features alongside FastAPI).{% endif %}
+{% if cookiecutter.include_cache == 'yes' %}(Note: The fastapi group in pyproject.toml may include fastapi-limiter if you also selected caching features).{% endif %}
 {% endif %}
 {% if cookiecutter.include_streamlit == 'yes' %}
-**Streamlit UI Framework:**
+**Streamlit UI Framework:** (Group: streamlit)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with streamlit{% else %}poetry install --with streamlit{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_langchain == 'yes' %}
-**LangChain & Vector DB Clients:**
+**LangChain & Vector DB Clients:** (Group: langchain)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with langchain{% else %}poetry install --with langchain{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_openai == 'yes' %}
-**OpenAI API Client:**
+**OpenAI API Client:** (Group: openai)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with openai{% else %}poetry install --with openai{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_ollama == 'yes' %}
-**Ollama Client:**
+**Ollama Client:** (Group: ollama)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with ollama{% else %}poetry install --with ollama{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_gemini == 'yes' %}
-**Google Gemini API Client:**
+**Google Gemini API Client:** (Group: gemini)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with gemini{% else %}poetry install --with gemini{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_vertex == 'yes' %}
-**Google Vertex AI Client:**
+**Google Vertex AI Client:** (Group: vertex)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with vertex{% else %}poetry install --with vertex{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_db == 'yes' %}
-**Database Tools (SQLAlchemy, psycopg2):**
+**Database Tools (SQLAlchemy, psycopg2):** (Group: db)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with db{% else %}poetry install --with db{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_redis == 'yes' %}
-**Redis Client:**
+**Redis Client:** (Group: redis)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with redis{% else %}poetry install --with redis{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_docker == 'yes' %}
-**Docker Python Client (for interacting with Docker API):**
+**Docker Python Client (for interacting with Docker API):** (Group: dockerpy)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with dockerpy{% else %}poetry install --with dockerpy{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_kubernetes == 'yes' %}
-**Kubernetes Python Client:**
+**Kubernetes Python Client:** (Group: kubernetespy)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with kubernetespy{% else %}poetry install --with kubernetespy{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_n8n == 'yes' %}
-**n8n Client:**
+**n8n Client:** (Group: n8nclient)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with n8nclient{% else %}poetry install --with n8nclient{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_logging == 'yes' %}
-**Application Logging Tools (Structlog):**
+**Application Logging Tools (Structlog):** (Group: app_logging)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with app_logging{% else %}poetry install --with app_logging{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_monitoring == 'yes' %}
-**Application Monitoring Tools (Prometheus Client):**
+**Application Monitoring Tools (Prometheus Client):** (Group: app_monitoring)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with app_monitoring{% else %}poetry install --with app_monitoring{% endif %}
 ```
 {% endif %}
-{% if cookiecutter.include_responsible_ai == 'yes' %}
-**Responsible AI Tools (e.g., Pydantic-i18n):**
-```bash
-{% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with responsible_ai_tools{% else %}poetry install --with responsible_ai_tools{% endif %}
-```
-{% endif %}
 {% if cookiecutter.include_data_validation == 'yes' %}
-**Data Validation Tools (e.g., Voluptuous):**
+**Data Validation Tools (e.g., Voluptuous):** (Group: data_validation_tools)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with data_validation_tools{% else %}poetry install --with data_validation_tools{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_cli == 'yes' %}
-**CLI Tools (e.g., Typer/Click dependencies):**
+**CLI Tools (e.g., Typer/Click dependencies):** (Group: cli_tools)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with cli_tools{% else %}poetry install --with cli_tools{% endif %}
 ```
 {% endif %}
 {% if cookiecutter.include_docs == 'yes' %}
-**Documentation Generator Tools (e.g., MkDocs/Sphinx dependencies):**
+**Documentation Generator Tools (e.g., MkDocs/Sphinx dependencies):** (Group: docs_tools)
 ```bash
 {% if cookiecutter.use_conda_support == "yes" %}conda run -n {{ cookiecutter.project_slug }} poetry install --with docs_tools{% else %}poetry install --with docs_tools{% endif %}
 ```
@@ -292,7 +289,7 @@ If you wish to install all optional dependencies from all defined groups, you ca
 ```
 (Note: `--all-extras` installs all dependencies from all optional groups. This is equivalent to listing all groups with `--with`.)
 {% else %}
-Optional features are managed via Poetry groups in `pyproject.toml`. If you enabled advanced options, specific instructions would appear here based on your selections. To explore available optional groups, see `pyproject.toml`.
+Advanced options were not selected during project generation. If you wish to add optional features later, you can define them as dependency groups in `pyproject.toml` and install them using `poetry install --with <group_name>`.
 {% endif %}
 
 ---
@@ -309,23 +306,26 @@ This project follows a standard "src-layout" structure:
 ├── data/                  # Data files for the project
 │   └── raw/               # Original, immutable data
 │       └── .gitkeep       # Ensures 'raw' directory is versioned
-├── docs/                  # Project documentation files
+├── docs/                  # Project documentation files (if include_docs is 'yes')
 │   └── index.md           # Main documentation page (example)
-├── notebooks/             # Jupyter notebooks for exploration and analysis
+├── notebooks/             # Jupyter notebooks (if include_notebooks is 'yes')
 │   └── example.ipynb      # Example notebook
 ├── src/                   # Source code directory
 │   └── {{cookiecutter.project_slug}}/  # The main Python package
 │       ├── __init__.py    # Initializes the package, defines public API
-│       └── main.py        # Example: Main application logic or entry point
-├── tests/                 # Automated tests for the project
+│       ├── config.py      # Application configuration loader
+│       ├── main.py        # Example: Main application logic or entry point
+│       └── __main__.py    # Makes the package executable with 'python -m {{cookiecutter.project_slug}}'
+├── tests/                 # Automated tests for the project (if include_tests is 'yes')
 │   ├── __init__.py        # Makes 'tests' a Python package
 │   └── test_example.py    # Example test file
 ├── environment.yml        # Conda environment specification (if using Conda)
 ├── LICENSE                # Project's license information
+├── Makefile               # Common development tasks
+├── mkdocs.yml             # MkDocs configuration (if include_docs is 'yes' and MkDocs is the chosen tool)
 ├── pyproject.toml         # Project metadata and Python dependencies (for Poetry) - THIS IS THE SOURCE OF TRUTH
 ├── README.md              # This file: Overview and guide
-├── requirements.txt       # Python dependencies (can be exported from Poetry for specific needs, see comments within)
-└── requirements_full.txt  # Optional: Can be generated from Poetry to list all possible dependencies
+└── requirements.txt       # Python dependencies (can be exported from Poetry for specific needs, see comments within)
 ```
 
 The primary source of truth for Python dependencies is `pyproject.toml` when using Poetry.  
@@ -359,6 +359,12 @@ Include command-line examples, API usage if it's a library, or steps to launch a
 #     print(f"Running {{ cookiecutter.project_name }}!")
 #     # Call your main function or demonstrate a key feature
 #     # main.execute_core_functionality()
+```
+
+You can also run the project as a module if an entry point is defined (e.g., in `src/{{cookiecutter.project_slug}}/__main__.py`):
+
+```bash
+python -m {{ cookiecutter.project_slug }}
 ```
 
 {% if cookiecutter.include_tests == "yes" -%}
