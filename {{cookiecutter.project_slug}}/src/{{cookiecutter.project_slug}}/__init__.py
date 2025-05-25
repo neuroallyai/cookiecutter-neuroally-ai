@@ -34,6 +34,6 @@ __version__ = "{{ cookiecutter.version }}"  # From cookiecutter.json
 
 # For a new scaffold, you might not have much to export yet.
 # Add your main functions/classes here as your package develops.
-print(
-    f"Package '{{ cookiecutter.project_slug }}' version {__version__} loaded."
-)  # Optional: for debug or confirmation
+# print(
+#     f"Package '{{ cookiecutter.project_slug }}' version {__version__} loaded."
+# )  # Optional: for debug or confirmation
