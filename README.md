@@ -9,41 +9,42 @@
 [![Cookiecutter](https://img.shields.io/badge/built%20with-Cookiecutter-ff69b4.svg)](https://github.com/cookiecutter/cookiecutter)
 [![License](https://img.shields.io/badge/License-MIT%2FApache--2.0%2FNone-yellow.svg)](https://opensource.org/licenses/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)](https://github.com/)
+[![GitKraken](https://img.shields.io/badge/GitKraken-Git%20GUI-179287?logo=gitkraken&logoColor=white)](https://www.gitkraken.com/)
+[![Poetry](https://img.shields.io/badge/Poetry-Package%20Management-60A5FA?logo=poetry&logoColor=white)](https://python-poetry.org/)
 ---
 [![OpenAI API](https://img.shields.io/badge/OpenAI-API-10a37f?logo=openai)](https://platform.openai.com/docs/api-reference)
 [![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4?logo=google)](https://ai.google.dev/gemini-api/docs)
+[![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-AI%20Coding%20Assistant-4B8BBE?logo=githubcopilot&logoColor=white)](https://github.com/features/copilot)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Poetry](https://img.shields.io/badge/Poetry-Package%20Management-60A5FA?logo=poetry&logoColor=white)](https://python-poetry.org/)
 [![LangChain Enabled](https://img.shields.io/badge/LangChain-Enabled-blueviolet)](https://www.langchain.com/)
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
----
-
-**cookiecutter-neuroally-ai** is a comprehensive and adaptable Cookiecutter template designed to accelerate the development of AI and Machine Learning projects, with a strong emphasis on building neuro-inclusive and accessible solutions. This scaffold provides a well-structured foundation, incorporating best practices for project organization, collaboration, and deployment, particularly for projects leveraging Large Language Models (LLMs) and focusing on diverse cognitive needs.
+**cookiecutter-neuroally-ai** is a comprehensive and adaptable Cookiecutter template designed to accelerate the development of AI and Machine Learning projects, emphasising building neuro-inclusive and accessible solutions. This scaffold provides a well-structured foundation, incorporating best practices for project organisation, collaboration, and deployment, particularly for projects leveraging Large Language Models (LLMs) and focusing on diverse cognitive needs.
 
 ## Key Features
 
 This template offers a wide range of features that you can selectively include in your project:
 
-* **Modular Project Structure:** A logical and organized directory layout to separate code, data, models, notebooks, documentation, and tests.
+* **Modular Project Structure:** A logical and organised directory layout to separate code, data, models, notebooks, documentation, and tests.
 * **LLM Integration Ready:** Dedicated modules for interacting with popular LLM providers (OpenAI, Gemini, Vertex AI, Ollama) and utilities for prompt management.
-* **RAG Pipeline Support:** Includes scaffolding for building Retrieval Augmented Generation (RAG) pipelines with vector database integration.
+* **RAG Pipeline Support:** This includes scaffolding for building Retrieval-Augmented Generation (RAG) pipelines with vector database integration.
 * **UI/API Layer Options:** Easily include a user interface with Streamlit and/or a backend API with FastAPI.
 * **Environment Management:** Options for Conda and/or traditional `requirements.txt` based dependency management.
 * **Development Workflow:** Pre-configured for pre-commit hooks (for code formatting and linting), VS Code settings, and optional Docker and Kubernetes support.
 * **CI/CD Integration:** Includes a basic GitHub Actions workflow for continuous integration and continuous deployment.
-* **Ethical Considerations:** Optional inclusion of a Code of Conduct and a template for addressing Responsible AI practices.
-* **Accessibility Focus:** Designed with considerations for building accessible AI, with potential integration points for accessibility testing.
+* **Ethical Considerations:** An Optional Code of Conduct and a template for addressing Responsible AI practices are included.
+* **Accessibility Focus:** This document was designed with considerations for building accessible AI and potential integration points for accessibility testing.
 * **Documentation & Contribution:** Includes templates for contributing guidelines and security policies.
-* **Flexible Presets:** Choose from project presets like "chatbot," "rag-pipeline," "trainer," or a "minimal" setup to quickly get started.
+* **Flexible Presets:** To quickly get started, choose from project presets like "chatbot," "rag-pipeline," "trainer," or a "minimal" setup.
 * **Advanced Options:** Fine-grained control over including features like authentication, caching, databases, logging, monitoring, and more.
 
 ## Getting Started
 
 ### Prerequisites
 
-* **Python:** Ensure you have Python 3.10 or a later version installed.
+* **Python:** Ensure you install Python 3.10 or a later version.
 * **Cookiecutter:** Install Cookiecutter if you haven't already:
 * 
     ```bash
@@ -59,7 +60,7 @@ This template offers a wide range of features that you can selectively include i
     ```
     *(Replace `your-username/cookiecutter-neuroally-ai` with the actual repository path if different).*
 
-3.  Cookiecutter will prompt you to answer a series of questions to configure your project. Choose the options that best suit your needs.
+3.  Cookiecutter will prompt you to answer a series of questions to configure your project. Please choose the options that work best for you.
 
 4.  Once the project is generated, navigate to the project directory:
 5.  
@@ -69,7 +70,7 @@ This template offers a wide range of features that you can selectively include i
 
 6.  Set up your development environment (either using Conda or pip based on your choice during generation).
 
-7.  Start building your amazing neuro-inclusive AI application!
+7.  Start building your excellent neuro-inclusive AI application!
 
 ## Project Structure (Generated)
 
@@ -184,7 +185,14 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for t
 
 - [Cookiecutter](https://github.com/cookiecutter/cookiecutter) for the project templating tool.
 - Poetry for Python packaging and dependency management.
-- The NeuroAlly.AI initiative provides the foundational template and vision.
+- OpenAI for GPT-4.1
+- Google for Gemini Pro
+- Google for Jules
+- Microsoft for GitHub Copilot
+- GitKraken for GUI
+- DeepLearning.AI & Coursera for foundational GenAI courses
+- Google Cloud Skills Boost & DataCamp for up-skilling resources
+- The veterans and neurodivergent communities inspiring NeuroAlly.AI
 
 ---
 
