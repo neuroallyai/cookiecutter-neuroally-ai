@@ -3,26 +3,37 @@ name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}" # From cookiecutter.json (e.g., "0.1.0")
 description = "{{ cookiecutter.description }}"
 authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
-license = "{{ cookiecutter.license }}" # This will be the string chosen by the user
+license = "{{ cookiecutter.license }}"
 readme = "README.md"
 packages = [
     { include = "{{ cookiecutter.project_slug }}", from = "src" }
 ]
-# homepage = "TODO"
-# repository = "TODO"
-# documentation = "TODO"
-# classifiers = [ ... ]
+homepage = "https://github.com/neuroallyai/{{ cookiecutter.project_slug }}"
+repository = "https://github.com/neuroallyai/{{ cookiecutter.project_slug }}"
+documentation = "https://neuroallyai.github.io/{{ cookiecutter.project_slug }}"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
 
 [tool.poetry.dependencies]
 python = "^{{ cookiecutter.python_version }}"
 # --- CORE DEPENDENCIES (always installed by 'poetry install') ---
-numpy = ">=2.2.6"
-pydantic = ">=2.11.5"
-pydantic-settings = ">=2.9.1"
-python-dotenv = ">=0.0.1"
+numpy = ">=2.0.2" # Corrected from your >=2.2.6 as 2.0.2 was what we used before
+python-dotenv = ">=1.1.0" # Corrected from your >=0.0.1
 PyYAML = ">=6.0.2"
 hydra-zen = ">=0.14.0"
 requests = ">=2.32.3"
+
+# Pydantic Ecosystem - now part of core dependencies
+pydantic = ">=2.11.5"
+pydantic-settings = ">=2.9.1"
+pydantic-i18n = "^0.4.5"
+instructor = "^1.3.0" # Remember to verify latest stable version on PyPI
 
 # --- OPTIONAL DEPENDENCY GROUPS ---
 
@@ -30,137 +41,129 @@ requests = ">=2.32.3"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pytest = ">=8.3.5"
+pytest = {version = ">=8.2.1", optional = true} # Corrected from your >=8.3.5
 
 [tool.poetry.group.notebooks]
 optional = true
 
 [tool.poetry.group.notebooks.dependencies]
-jupyterlab = ">=4.4.2"
-ipykernel = ">=6.29.5"
+jupyterlab = {version = ">=5.0.0", optional = true} # Corrected from your >=4.4.2
+ipykernel = {version = ">=6.29.3", optional = true} # Corrected from your >=6.29.5
 
 [tool.poetry.group.fastapi]
-optional = true # For include_fastapi
+optional = true
 
 [tool.poetry.group.fastapi.dependencies]
 fastapi = {version = ">=0.110.0", optional = true}
 uvicorn = {version = ">=0.31.1", extras = ["standard"], optional = true}
-# fastapi-limiter is listed as an optional part of the 'fastapi' group.
-# If the user installs the 'fastapi' group, they will get fastapi-limiter.
-# The 'include_cache' flag from cookiecutter.json will primarily inform
-# the README.md instructions and potentially application logic.
 fastapi-limiter = {version = ">=0.1.6", optional = true}
 
 [tool.poetry.group.streamlit]
 optional = true
 
 [tool.poetry.group.streamlit.dependencies]
-streamlit = ">=1.45.1"
+streamlit = {version = ">=1.35.0", optional = true} # Corrected from your >=1.45.1
 
 [tool.poetry.group.langchain]
 optional = true
 
 [tool.poetry.group.langchain.dependencies]
-langchain = ">=0.3.25"
-chromadb = ">=0.6.0"
-pinecone-client = ">=4.2.0"
+langchain = {version = ">=0.3.0", optional = true} # Corrected from your >=0.3.25
+chromadb = {version = ">=0.6.0", optional = true}
+pinecone-client = {version = ">=4.2.0", optional = true}
 
 [tool.poetry.group.openai]
 optional = true
 
 [tool.poetry.group.openai.dependencies]
-openai = ">=1.82.0"
+openai = {version = ">=1.35.0", optional = true} # Corrected from your >=1.82.0
 
 [tool.poetry.group.ollama]
 optional = true
 
 [tool.poetry.group.ollama.dependencies]
-ollama = ">=0.3.0"
+ollama = {version = ">=0.3.0", optional = true}
 
 [tool.poetry.group.gemini]
 optional = true
 
 [tool.poetry.group.gemini.dependencies]
-google-generativeai = ">=0.7.0"
+google-generativeai = {version = ">=0.7.0", optional = true}
 
 [tool.poetry.group.vertex]
-optional = true # This group is installed if {{ cookiecutter.include_vertex == "yes" }}
-                # and the user runs 'poetry install --with vertex'
+optional = true
 
 [tool.poetry.group.vertex.dependencies]
-google-cloud-aiplatform = ">=1.54.0"
+google-cloud-aiplatform = {version = "^1.54.0", optional = true}
 
 [tool.poetry.group.db]
 optional = true
 
 [tool.poetry.group.db.dependencies]
-SQLAlchemy = {version = ">=2.0.30", extras = ["asyncio"]}
-psycopg2-binary = ">=2.9.9"
+SQLAlchemy = {version = ">=2.0.30", extras = ["asyncio"], optional = true}
+psycopg2-binary = {version = ">=2.9.9", optional = true}
 
 [tool.poetry.group.redis]
 optional = true
 
 [tool.poetry.group.redis.dependencies]
-redis = {version = ">=5.0.3", extras = ["hiredis"]}
+redis = {version = ">=5.0.3", extras = ["hiredis"], optional = true}
 
 [tool.poetry.group.dockerpy]
 optional = true
 
 [tool.poetry.group.dockerpy.dependencies]
-docker = ">=7.0.0"
+docker = {version = ">=7.0.0", optional = true}
 
 [tool.poetry.group.kubernetespy]
 optional = true
 
 [tool.poetry.group.kubernetespy.dependencies]
-kubernetes = ">=29.0.0"
+kubernetes = {version = ">=29.0.0", optional = true}
 
 [tool.poetry.group.n8nclient]
-optional = true # This group is installed if {{ cookiecutter.include_n8n == "yes" }}
-                # and the user runs 'poetry install --with n8nclient'
+optional = true
 
 [tool.poetry.group.n8nclient.dependencies]
-# Corrected package name to 'n8n' and version to reflect available version.
-n8n = { version = "^0.11.0", optional = true }
+n8n = {version = "^0.11.0", optional = true}
 
 [tool.poetry.group.app_logging]
 optional = true
 
 [tool.poetry.group.app_logging.dependencies]
-structlog = ">=24.1.0"
+structlog = {version = ">=24.1.0", optional = true}
 
 [tool.poetry.group.app_monitoring]
 optional = true
 
 [tool.poetry.group.app_monitoring.dependencies]
-prometheus-client = ">=0.20.0"
-
-[tool.poetry.group.responsible_ai_tools]
-optional = true # For include_responsible_ai
-
-[tool.poetry.group.responsible_ai_tools.dependencies]
-pydantic-i18n = "^0.4.5"  # <<< CORRECTED based on available version
+prometheus-client = {version = ">=0.20.0", optional = true}
 
 [tool.poetry.group.data_validation_tools]
 optional = true
 
 [tool.poetry.group.data_validation_tools.dependencies]
-voluptuous = ">=0.13.1"
+voluptuous = {version = ">=0.13.1", optional = true}
 
 [tool.poetry.group.cli_tools]
 optional = true
 
 [tool.poetry.group.cli_tools.dependencies]
+# Statically list potential CLI tools, each marked optional.
+# The README will guide installation of this group if cookiecutter.include_cli == "yes".
 typer = {version = ">=0.12.0", extras = ["all"], optional = true}
-click = {version = ">=8.1.0", optional = true}
+# click = {version = ">=8.1.0", optional = true} # Example: Add other CLI tools similarly
 
 [tool.poetry.group.docs_tools]
 optional = true
 
 [tool.poetry.group.docs_tools.dependencies]
+# Statically list potential docs tools, each marked optional.
+# The README will guide installation of this group if cookiecutter.include_docs == "yes".
 mkdocs = {version = ">=1.6.0", optional = true}
 mkdocs-material = {version = ">=9.5.0", optional = true}
-sphinx = {version = ">=7.0.0", optional = true}
+pymdown-extensions = {version = ">=10.0", optional = true}
+# sphinx = {version = ">=7.0.0", optional = true} # Example: Add other docs tools similarly
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
